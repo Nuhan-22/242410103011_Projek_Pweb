@@ -21,9 +21,9 @@ return new class extends Migration
 
             // Foreign Key untuk menghubungkan ke tabel 'ulasan'.
             // Menggunakan foreignId() untuk tipe data BIGINT unsigned yang tepat.
-            // Tambahkan ->constrained() untuk Foreign Key yang sebenarnya.
+            // Spesifikan column 'id_ulasan' karena itu adalah primary key di tabel ulasan
             $table->foreignId('id_ulasan')
-                  ->constrained('ulasan') // Asumsi tabel tujuan adalah 'ulasan'
+                  ->constrained('ulasan', 'id_ulasan') // Spesifik ke kolom id_ulasan
                   ->onDelete('cascade');
 
             // Tambahan standar Laravel

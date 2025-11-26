@@ -19,21 +19,11 @@ return new class extends Migration
             $table->integer('nilai_rating')->nullable();
             $table->text('isi_komentar');
 
-            // Foreign Key ke tempat_wisata
-            $table->foreignId('id_tempat_wisata')
-                  ->constrained('tempat_wisata', 'id_tempat_wisata')
-                  ->onDelete('cascade');
-
-            // Foreign Key ke pengguna
-            $table->foreignId('id_pengguna')
-                  ->constrained('pengguna', 'id_pengguna')
-                  ->onDelete('cascade');
-
-            // Foreign Key untuk membalas ulasan (Self-referencing Foreign Key)
-            $table->foreignId('id_ulasan_yg_dibalas')
-                  ->nullable() // Karena tidak semua ulasan adalah balasan
-                  ->constrained('ulasan', 'id_ulasan')
-                  ->onDelete('cascade');
+            // Foreign Key columns tanpa constraint (akan ditambah di migration terpisah)
+            // Ini menghindari duplicate constraint
+            $table->unsignedBigInteger('id_tempat_wisata');
+            $table->unsignedBigInteger('id_pengguna');
+            $table->unsignedBigInteger('id_ulasan_yg_dibalas')->nullable();
 
             $table->timestamps();
         });
