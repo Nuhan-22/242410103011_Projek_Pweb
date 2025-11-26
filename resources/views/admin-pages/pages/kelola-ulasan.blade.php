@@ -1,110 +1,102 @@
 @extends('admin-pages.layouts.app')
-# Extends layout utama admin
+{{-- Extends layout utama admin --}}
 
 @section('title', 'Kelola Ulasan')
-# Set title halaman
+{{-- Set title halaman --}}
 
 @section('content')
-# Bagian konten utama
+{{-- Bagian konten utama --}}
 
     @if (!empty($comments))
-    # Cek apakah ada data ulasan
-    # Jika ada, tampilkan tabel
+    {{-- Cek apakah ada data ulasan - Jika ada, tampilkan tabel --}}
 
     <div class="px-4 my-6 bg-white shadow-md rounded-lg overflow-hidden">
-        # Container tabel dengan styling
-        # px-4 = padding horizontal 1rem
-        # my-6 = margin vertikal 1.5rem
-        # bg-white = background putih
-        # shadow-md = medium shadow effect
-        # rounded-lg = border radius besar
-        # overflow-hidden = crop content jika melebihi border
+        {{-- Container tabel dengan styling --}}
+        {{-- px-4 = padding horizontal 1rem --}}
+        {{-- my-6 = margin vertikal 1.5rem --}}
+        {{-- bg-white = background putih --}}
+        {{-- shadow-md = medium shadow effect --}}
+        {{-- rounded-lg = border radius besar --}}
+        {{-- overflow-hidden = crop content jika melebihi border --}}
 
         <table id="data-table" class="table w-full text-sm">
-            # Tabel dengan id 'data-table' (untuk JavaScript datatable)
-            # w-full = lebar penuh
-            # text-sm = font size kecil
+            {{-- Tabel dengan id 'data-table' (untuk JavaScript datatable) --}}
+            {{-- w-full = lebar penuh, text-sm = font size kecil --}}
 
             <thead class="bg-blue-600 text-white">
-                # Header tabel dengan background biru dan text putih
+                {{-- Header tabel dengan background biru dan text putih --}}
 
                 <tr>
                     <th class="p-2 align-middle border">#</th>
-                    # Kolom nomor urut
+                    {{-- Kolom nomor urut --}}
 
                     <th class="p-2 align-middle border">Nama Tempat Wisata</th>
-                    # Kolom nama tempat wisata
+                    {{-- Kolom nama tempat wisata --}}
 
                     <th class="p-2 align-middle border">Nama Pengunjung</th>
-                    # Kolom nama pengunjung yang memberi ulasan
+                    {{-- Kolom nama pengunjung yang memberi ulasan --}}
 
                     <th class="p-2 align-middle border">Isi Komentar</th>
-                    # Kolom isi komentar/review
+                    {{-- Kolom isi komentar/review --}}
 
                     <th class="p-2 align-middle border">Rating</th>
-                    # Kolom rating (1-5 bintang)
+                    {{-- Kolom rating (1-5 bintang) --}}
 
                     <th class="p-2 align-middle border">Aksi</th>
-                    # Kolom aksi (tombol hapus)
+                    {{-- Kolom aksi (tombol hapus) --}}
                 </tr>
             </thead>
 
             <tbody>
-                # Body tabel - berisi data ulasan
+                {{-- Body tabel - berisi data ulasan --}}
 
                 @php
-                    # Initialize counter untuk nomor urut
+                    // Initialize counter untuk nomor urut
                     $i = 1;
                 @endphp
 
                 @foreach ($comments as $comment)
-                    # Loop setiap ulasan dari variable $comments
+                    {{-- Loop setiap ulasan dari variable $comments --}}
 
                     <tr class="hover:bg-gray-50">
-                        # Row tabel dengan hover effect (background abu-abu)
+                        {{-- Row tabel dengan hover effect (background abu-abu) --}}
 
-                        <!-- Row number -->
                         <td class="p-2 align-middle border">{{ $i }}</td>
-                        # Nomor urut (increment dari $i)
+                        {{-- Nomor urut (increment dari $i) --}}
 
-                        <!-- Other columns -->
                         <td class="p-2 align-middle border">{{ $comment->tempat_wisata->nama }}</td>
-                        # Nama tempat wisata dari relasi object
+                        {{-- Nama tempat wisata dari relasi object --}}
 
                         <td class="p-2 align-middle border">{{ $comment->pengguna->nama_depan}}</td>
-                        # Nama depan pengunjung dari relasi object
+                        {{-- Nama depan pengunjung dari relasi object --}}
 
                         <td class="p-2 align-middle border">{{ $comment->komentar}}</td>
-                        # Isi komentar
+                        {{-- Isi komentar --}}
 
                         <td class="p-2 align-middle border">{{ $comment->rating}}</td>
-                        # Rating (1-5)
+                        {{-- Rating (1-5) --}}
 
                         <td class="p-2 align-middle border">
-                            # Kolom aksi - tombol hapus
+                            {{-- Kolom aksi - tombol hapus --}}
 
                             <form action="{{ route('comment.destroy', $comment->id) }}" method="POST" style="display:inline;"
                                 onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ulasan ini?');">
-                              # Form untuk delete dengan:
-                              # - action ke route 'comment.destroy' dengan ID ulasan
-                              # - method POST (converted to DELETE by @method)
-                              # - onsubmit = confirmation dialog
+                              {{-- Form untuk delete dengan:
+                                   - action ke route 'comment.destroy' dengan ID ulasan
+                                   - method POST (converted to DELETE by @method)
+                                   - onsubmit = confirmation dialog --}}
 
                               @csrf
-                              # CSRF token untuk security
+                              {{-- CSRF token untuk security --}}
 
                               @method('DELETE')
-                              # Spoof method POST menjadi DELETE untuk RESTful
+                              {{-- Spoof method POST menjadi DELETE untuk RESTful --}}
 
                               <button type="submit" class="btn btn-danger btn-sm px-4 py-2 rounded-md border border-red-500 hover:bg-red-600 hover:text-white transition duration-200">
-                                # Tombol submit:
-                                # - btn-danger = styling tombol delete
-                                # - px-4 py-2 = padding horizontal-vertical
-                                # - rounded-md = border radius medium
-                                # - border border-red-500 = red border
-                                # - hover:bg-red-600 hover:text-white = hover effect
-                                # - transition duration-200 = smooth animation 200ms
-
+                                {{-- Tombol submit dengan styling: --}}
+                                {{-- btn-danger = styling tombol delete --}}
+                                {{-- px-4 py-2 = padding horizontal-vertical --}}
+                                {{-- hover:bg-red-600 hover:text-white = hover effect --}}
                                 Hapus
                               </button>
                           </form>
@@ -112,7 +104,7 @@
                     </tr>
 
                     @php
-                        # Increment counter untuk nomor urut berikutnya
+                        // Increment counter untuk nomor urut berikutnya
                         $i++;
                     @endphp
                 @endforeach
@@ -121,31 +113,29 @@
     </div>
 
     @else
-    # Jika tidak ada data ulasan, tampilkan pesan kosong
+    {{-- Jika tidak ada data ulasan, tampilkan pesan kosong --}}
 
     <div class="w-full max-w-sm mx-auto bg-white rounded-lg shadow-md p-4 mt-40">
-        # Container pesan kosong dengan styling
-        # w-full max-w-sm = lebar penuh max 28rem (small)
-        # mx-auto = center horizontal
-        # mt-40 = margin top besar (untuk center vertikal)
+        {{-- Container pesan kosong dengan styling --}}
+        {{-- w-full max-w-sm = lebar penuh max 28rem (small) --}}
+        {{-- mx-auto = center horizontal, mt-40 = margin top besar --}}
 
         <div class="flex items-center space-x-3">
-          # Flex container untuk icon dan text
-          # space-x-3 = spacing horizontal 0.75rem
+          {{-- Flex container untuk icon dan text --}}
+          {{-- space-x-3 = spacing horizontal 0.75rem --}}
 
           <div class="text-blue-500 rounded-full">
-            # Icon container
-
+            {{-- Icon container --}}
             <img src="{{ asset('assets/images/icons/warning-icon.svg') }}" class="h-16 w-16" alt="">
-            # Icon warning (16x16 rem = 64x64px)
+            {{-- Icon warning (64x64px) --}}
           </div>
 
           <p class="text-sm text-gray-700">Belum ada ulasan!</p>
-          # Text pesan kosong
+          {{-- Text pesan kosong --}}
         </div>
 
         <div class="mt-4">
-        # Empty div untuk spacing (bisa diisi button atau link tambahan)
+        {{-- Empty div untuk spacing --}}
         </div>
       </div>
     @endif
