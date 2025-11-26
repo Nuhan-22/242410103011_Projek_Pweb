@@ -7,6 +7,20 @@
 @section('content')
 {{-- Bagian konten utama --}}
 
+    {{-- Tampilkan success message jika ada --}}
+    @if(session('success'))
+        <div class="px-4 py-3 mb-4 bg-green-100 border border-green-400 text-green-700 rounded">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    {{-- Tampilkan error message jika ada --}}
+    @if(session('error'))
+        <div class="px-4 py-3 mb-4 bg-red-100 border border-red-400 text-red-700 rounded">
+            {{ session('error') }}
+        </div>
+    @endif
+
     @if (!empty($comments))
     {{-- Cek apakah ada data ulasan - Jika ada, tampilkan tabel --}}
 
@@ -79,8 +93,10 @@
                         <td class="p-2 align-middle border">
                             {{-- Kolom aksi - tombol hapus --}}
 
-                            <form action="{{ route('comment.destroy', $comment->id) }}" method="POST" style="display:inline;"
-                                onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ulasan ini?');">
+                            <form action="{{ route('comment.destroy', $comment->id) }}"
+                                  method="POST"
+                                  style="display:inline;"
+                                  onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ulasan ini?');">
                               {{-- Form untuk delete dengan:
                                    - action ke route 'comment.destroy' dengan ID ulasan
                                    - method POST (converted to DELETE by @method)
@@ -92,11 +108,14 @@
                               @method('DELETE')
                               {{-- Spoof method POST menjadi DELETE untuk RESTful --}}
 
-                              <button type="submit" class="btn btn-danger btn-sm px-4 py-2 rounded-md border border-red-500 hover:bg-red-600 hover:text-white transition duration-200">
+                              <button type="submit"
+                                      class="btn btn-danger btn-sm px-4 py-2 rounded-md border border-red-500 hover:bg-red-600 hover:text-white transition duration-200"
+                                      id="delete-btn-{{ $comment->id }}">
                                 {{-- Tombol submit dengan styling: --}}
                                 {{-- btn-danger = styling tombol delete --}}
                                 {{-- px-4 py-2 = padding horizontal-vertical --}}
                                 {{-- hover:bg-red-600 hover:text-white = hover effect --}}
+                                {{-- id unique untuk setiap tombol --}}
                                 Hapus
                               </button>
                           </form>

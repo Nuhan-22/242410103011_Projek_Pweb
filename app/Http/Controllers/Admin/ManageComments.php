@@ -72,14 +72,32 @@ class ManageComments extends Controller
         // Method untuk menghapus ulasan berdasarkan ID
         // $id = ID ulasan yang akan dihapus
 
-        // Cari ulasan, jika tidak ditemukan throw 404 error
-        $comment = Ulasan::findOrFail($id);
+        try {
+            // Cari ulasan berdasarkan primary key id_ulasan
+            $comment = Ulasan::where('id_ulasan', $id)->firstOrFail();
 
-        // Delete/hapus data ulasan dari database
-        $comment->delete();
+            // Optional: Cek apakah user authorized untuk delete
+            // Jika role 3 (pemilik), hanya bisa hapus ulasan milik pengunjung tempat mereka
+            // if(Auth::user()->id_role == 3) {
+            //     if($comment->id_pengguna != Auth::user()->id_pengguna) {
+            //         return abort(403, 'Unauthorized action');
+            //     }
+            // }
 
-        // Redirect kembali ke halaman kelola ulasan dengan pesan sukses
-        return redirect()->route('admin.manage.comment');
+            // Delete/hapus data ulasan dari database
+            $comment->delete();
+
+            // Redirect dengan flash message sukses
+            return redirect()
+                ->route('admin.manage.comment')
+                ->with('success', 'Ulasan berhasil dihapus!');
+
+        } catch(\Exception $e) {
+            // Jika terjadi error (ulasan tidak ditemukan atau error lainnya)
+            return redirect()
+                ->route('admin.manage.comment')
+                ->with('error', 'Gagal menghapus ulasan: ' . $e->getMessage());
+        }
     }
 
     public function store(Request $request,$destination_id)
