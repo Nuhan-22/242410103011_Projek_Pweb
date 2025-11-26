@@ -10,7 +10,7 @@
         <div class="flex-shrink-0 w-1/2 over" style="width: 600px; height: 400px">
             @if ($destination->gambar_tempat_wisata && $destination->gambar_tempat_wisata->first())
                 <img id="destinationImage"
-                    src="{{ asset($destination->gambar_tempat_wisata->first()['url_gambar']) }}"
+                    src="{{ asset('storage/' . $destination->gambar_tempat_wisata->first()['url_gambar']) }}"
                     alt="{{ $destination->nama }}"
                     class="w-full h-full object-cover rounded-lg shadow-lg"
                     style="object-fit: cover; display: block;">

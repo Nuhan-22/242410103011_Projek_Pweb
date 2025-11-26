@@ -76,7 +76,7 @@
           <div id="myModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
             <div class="relative bg-white rounded-lg p-4">
                 <span class="absolute top-2 right-2 text-gray-600 cursor-pointer" id="closeModal">&times;</span>
-                <img class="max-w-full max-h-screen" id="modalImage" src="{{ asset($pesananTiket->pembayaran->bukti_pembayaran) }}" alt="Payment Proof">
+                <img class="max-w-full max-h-screen" id="modalImage" src="{{ asset('storage/' . $pesananTiket->pembayaran->bukti_pembayaran) }}" alt="Payment Proof">
             </div>
         </div>
 

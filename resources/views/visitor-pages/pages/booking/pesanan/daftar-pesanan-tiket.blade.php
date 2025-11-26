@@ -43,7 +43,7 @@
       <div class="bg-white shadow-md rounded-lg p-4 flex items-start">
         <img
           src="
-            {{ asset($pesanan->tikets->first()->tipe_tiket->first()->tempat_wisata->first()->gambar_tempat_wisata->first()->url_gambar) }}
+            {{ asset('storage/' . $pesanan->tikets->first()->tipe_tiket->first()->tempat_wisata->first()->gambar_tempat_wisata->first()->url_gambar) }}
           "
           alt="Gambar Wisata"
           class=" w-36 h-20 rounded-md object-cover mr-4"
