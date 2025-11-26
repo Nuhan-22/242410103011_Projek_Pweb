@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
         @foreach ($carousels as $index => $carousel)
             <div class="carousel-slide w-full flex-shrink-0">
                 <div class="relative w-full h-[500px]">
-                    <img src="{{ asset('storage/' . $carousel['url_gambar']) }}" alt="{{ $carousel['judul'] }}" class="w-full h-full object-cover" />
+                    <img src="{{ asset($carousel->image_url) }}" alt="{{ $carousel['judul'] }}" class="w-full h-full object-cover" />
                     <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center">
                         <div class="p-12 lg:ml-20 text-left max-w-lg">
                             <h2 class="text-white text-4xl font-bold mb-4">
@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <!-- Image -->
             <img
               class="w-full h-full object-cover absolute top-0 left-0 z-0 hover:scale-150"
-              src="{{ asset('storage/' . $destination->gambar_tempat_wisata->first()['url_gambar']) }}"
+              src="{{ asset($destination->gambar_tempat_wisata->first()->image_url) }}"
               alt="{{ $destination['nama_tempat'] }}"
               style="transition: 800ms">
 

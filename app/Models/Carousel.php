@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Carousel
- * 
+ *
  * @property int $id_carousel
  * @property string $judul
  * @property string|null $deskripsi
@@ -33,4 +33,16 @@ class Carousel extends Model
 		'url_gambar',
 		'link_button'
 	];
+
+	/**
+	 * Get the image URL with storage/ prefix if not already present
+	 * This prevents double storage/ in path
+	 */
+	public function getImageUrlAttribute()
+	{
+		if (strpos($this->url_gambar, 'storage/') === 0) {
+			return $this->url_gambar; // Already has storage/ prefix
+		}
+		return 'storage/' . $this->url_gambar; // Add prefix
+	}
 }

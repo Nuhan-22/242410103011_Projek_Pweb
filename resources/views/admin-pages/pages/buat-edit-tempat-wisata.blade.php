@@ -192,7 +192,7 @@
                         @foreach ($destination->gambar_tempat_wisata as $i => $gambar)
                             <div class="border-cyan-500 p-1 border-2 rounded-md flex gap-1" data-id="{{ $i+1 }}">
                                 <div class="max-h-24 transition duration-300 ease-in-out">
-                                    <img src="{{ asset('storage/' . $gambar->url_gambar) }}" alt="" class="max-h-24 group-hover:filter group-hover:brightness-0 group-hover:invert" />
+                                    <img src="{{ asset($gambar->image_url) }}" alt="" class="max-h-24 group-hover:filter group-hover:brightness-0 group-hover:invert" />
                                     <input class="hidden" name="id_gambar_tempat_wisata_{{ $i+1 }}" value="{{ $gambar->id_gambar_tempat_wisata }}" />
                                     <input class="hidden" type="file" name="gambar_tempat_wisata_{{ $i+1 }}" />
                                 </div>
